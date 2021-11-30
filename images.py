@@ -1,6 +1,7 @@
 import numpy as np
 import skimage.io as io
 from pylab import *
+import cv2
 from skimage import feature, morphology, filters, util
 from matplotlib import pyplot as plt
 from matplotlib import gridspec as grd
@@ -8,7 +9,8 @@ import matplotlib.pyplot as plt
 from PIL import Image
 
 def get_file_path(group_name, number):
-    file_path = "img_to_teach/" + group_name + '/' + group_name
+    file_path = "img_processed/" + group_name + '/' + group_name
+    number = number-1 ### for processed
     if number < 10:
         file_path += '0'
     file_path += str(number) + ".jpg"
@@ -51,8 +53,25 @@ def preprocess(groups, names):
     for i, group in enumerate(groups):
         preprocess_group(group, names[i])
 
+def calculate_hu(image):
+    moments = cv2.moments(image)
+    huMoments = cv2.HuMoments(moments)
+    return huMoments
+
+def normalize_hu(moments):
+    for i in range(7):
+        moments[i] = -1* copysign(1.0, moments[i])*log10(abs(moments[i]))
+    return moments
+
+def make_desc(photos, names):
+    desc = list()
+    for i, group in enumerate(names):
+        for j in range(25):
+            desc.append((normalize_hu(calculate_hu(photos[i][j])), group))
+    return desc
+
 names = ("apple", "asus", "dell", "hp", "huawei", "microsoft")
 photos = load_groups(names)
 
-preprocess(photos, names)
-
+#preprocess(photos, names)
+data = make_desc(photos, names)
