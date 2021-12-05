@@ -73,13 +73,56 @@ def make_desc(photos, names):
             desc.append((normalize_hu(calculate_hu(photos[i][j])), group))
     return desc
 
-names = ("apple", "asus", "dell", "hp", "huawei", "microsoft")
-photos = load_groups(names)
+def dist_desc(desc1, desc2):
+    dist = 0
+    for i in range(len(desc1)):
+        dist += (desc1[i]-desc2[i])**2
+    return sqrt(dist)
 
-preprocess(photos, names)
+def prediction(data, test, k):
+    dists = list()
+    for dset in data:
+        dists.append((dset[1], dist_desc(dset[0], test)))
+    dists.sort(key=lambda t: t[1])
+    nghb = dict()
+    for i in range(k):
+        name = dists[i][0]
+        if name in nghb.keys():
+            nghb[name] += 1
+        else:
+            nghb[name] = 1
+    v = max(nghb.values())
+    name = list()
+    for i in nghb.keys():
+        if nghb[i] == v:
+            name.append(i)
+    return name
+
+def select_k(data):
+    max_match = 0
+    k = 1
+    for k_guess in range(3, 21):
+        matches = 0
+        for i in data:
+            predict = prediction(data, i[0], k_guess)
+            if predict[0] == i[1]:
+                matches += 1
+        if matches > max_match:
+            max_match = matches
+            k = k_guess
+    return k
+
+names = ("apple", "asus", "dell", "hp", "huawei", "microsoft")
+#photos = load_groups(names)
+
+#preprocess(photos, names)
 
 photos = load_groups(names, processed=True)
 
 data = make_desc(photos, names)
 
-print(data[0])
+bestK = select_k(data)
+print("K: ", bestK, "\n", end=" ")
+
+for i in data:
+    print(i[1], "prediciton:", prediction(data, i[0], bestK)[0], "\n", end=" ")

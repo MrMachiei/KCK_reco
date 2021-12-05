@@ -18,11 +18,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/images.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+            <state relative-caret-position="347">
+              <caret line="127" column="62" selection-start-line="127" selection-start-column="62" selection-end-line="127" selection-end-column="62" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
-                <element signature="e#1107#1631#0" />
               </folding>
             </state>
           </provider>
@@ -57,6 +56,17 @@
             <path>
               <item name="KCK_reco" type="b2602c69:ProjectViewProjectNode" />
               <item name="KCK_reco" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KCK_reco" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KCK_reco" type="462c0819:PsiDirectoryNode" />
+              <item name="img_processed" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KCK_reco" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KCK_reco" type="462c0819:PsiDirectoryNode" />
+              <item name="img_processed" type="462c0819:PsiDirectoryNode" />
+              <item name="asus" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -128,8 +138,8 @@
     <frame x="-1848" y="25" width="1440" height="820" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49250534" visible="true" weight="0.33403805" />
-      <window_info id="Structure" order="1" sideWeight="0.5074946" side_tool="true" visible="true" weight="0.33403805" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49292454" visible="true" weight="0.33403805" />
+      <window_info id="Structure" order="1" sideWeight="0.5070755" side_tool="true" visible="true" weight="0.33403805" />
       <window_info id="Favorites" order="2" sideWeight="0.5009901" side_tool="true" weight="0.24960506" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -188,13 +198,15 @@
     </option>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/img_processed/asus/asus01.jpg">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/images.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+        <state relative-caret-position="347">
+          <caret line="127" column="62" selection-start-line="127" selection-start-column="62" selection-end-line="127" selection-end-column="62" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
-            <element signature="e#1107#1631#0" />
           </folding>
         </state>
       </provider>
