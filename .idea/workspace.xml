@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b89d7f02-9b83-4f30-9f2e-3292f6013604" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/images.py" beforeDir="false" afterPath="$PROJECT_DIR$/images.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -19,10 +18,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/images.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="72" column="62" lean-forward="true" selection-start-line="72" selection-start-column="62" selection-end-line="72" selection-end-column="62" />
+            <state relative-caret-position="265">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
+                <element signature="e#1107#1631#0" />
               </folding>
             </state>
           </provider>
@@ -51,7 +51,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -59,15 +58,11 @@
               <item name="KCK_reco" type="b2602c69:ProjectViewProjectNode" />
               <item name="KCK_reco" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="KCK_reco" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KCK_reco" type="462c0819:PsiDirectoryNode" />
-              <item name="img_to_teach" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -130,11 +125,11 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-15" y="25" width="1440" height="820" extended-state="0" />
+    <frame x="-1848" y="25" width="1440" height="820" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.495283" visible="true" weight="0.33403805" />
-      <window_info id="Structure" order="1" sideWeight="0.504717" side_tool="true" visible="true" weight="0.33403805" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49250534" visible="true" weight="0.33403805" />
+      <window_info id="Structure" order="1" sideWeight="0.5074946" side_tool="true" visible="true" weight="0.33403805" />
       <window_info id="Favorites" order="2" sideWeight="0.5009901" side_tool="true" weight="0.24960506" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -195,10 +190,11 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/images.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="72" column="62" lean-forward="true" selection-start-line="72" selection-start-column="62" selection-end-line="72" selection-end-column="62" />
+        <state relative-caret-position="265">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#1107#1631#0" />
           </folding>
         </state>
       </provider>

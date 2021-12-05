@@ -8,39 +8,42 @@ from matplotlib import gridspec as grd
 import matplotlib.pyplot as plt
 from PIL import Image
 
-def get_file_path(group_name, number):
-    file_path = "img_processed/" + group_name + '/' + group_name
-    number = number-1 ### for processed
+def get_file_path(group_name, number, processed=False):
+    if processed:
+        file_path = "img_processed/" + group_name + '/' + group_name
+        number = number - 1
+    else:
+        file_path = "img_to_teach/" + group_name + '/' + group_name
+        number = number
+     ### for processed
     if number < 10:
         file_path += '0'
     file_path += str(number) + ".jpg"
     return file_path
 
 
-def load_photos_from_group(group_name):
+def load_photos_from_group(group_name, processed=False):
     group_photos = []
     for i in range(25):
-        file_path = get_file_path(group_name, i+1)
+        file_path = get_file_path(group_name, i+1, processed)
         image = io.imread(file_path, as_gray=True)
         # print("Loaded "+group_name+" no. \t"+str(i+1))
         group_photos.append(image)
     return group_photos
 
 
-def load_groups(group_names):   # group_names = ("apple", "asus", "dell", "hp", "huawei", "microsoft")
+def load_groups(group_names, processed=False):   # group_names = ("apple", "asus", "dell", "hp", "huawei", "microsoft")
     groups = []
     for g in group_names:
-        single_group = load_photos_from_group(g)
+        single_group = load_photos_from_group(g, processed)
         groups.append(single_group)
     return groups
 
 def preprocess_group(group, g_name):
 
     for i, v in enumerate(group):
-        image = v
-        #image = morphology.erosion(image, morphology.square(4))
-        #image = morphology.dilation(image, morphology.square(3))
-        #image = filters.rank.median(util.img_as_ubyte(image), ones([3, 3], dtype=uint8))
+        image = v.copy()
+
         image = feature.canny(image=image, sigma=1.5)
 
         file_path = "img_processed/" + g_name + '/' + g_name
@@ -73,5 +76,10 @@ def make_desc(photos, names):
 names = ("apple", "asus", "dell", "hp", "huawei", "microsoft")
 photos = load_groups(names)
 
-#preprocess(photos, names)
+preprocess(photos, names)
+
+photos = load_groups(names, processed=True)
+
 data = make_desc(photos, names)
+
+print(data[0])
