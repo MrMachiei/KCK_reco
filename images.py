@@ -8,53 +8,60 @@ from matplotlib import gridspec as grd
 import matplotlib.pyplot as plt
 from PIL import Image
 
-def get_file_path(group_name, number, processed=False):
-    if processed:
+def get_file_path(group_name, number, processed=0):
+    if processed == 1:
         file_path = "img_processed/" + group_name + '/' + group_name
+        number = number - 1
+    elif processed == 2:
+        file_path = "img_test/" + group_name + '/test_' + group_name
+    elif processed == 3:
+        file_path = "img_test_processed/" + group_name + '/' + group_name
         number = number - 1
     else:
         file_path = "img_to_teach/" + group_name + '/' + group_name
-        number = number
-     ### for processed
     if number < 10:
         file_path += '0'
     file_path += str(number) + ".jpg"
     return file_path
 
 
-def load_photos_from_group(group_name, processed=False):
+def load_photos_from_group(group_name, processed=0):
     group_photos = []
-    for i in range(25):
+    if processed > 1:
+        n = 9
+    else:
+        n = 25
+    for i in range(n):
         file_path = get_file_path(group_name, i+1, processed)
         image = io.imread(file_path, as_gray=True)
-        # print("Loaded "+group_name+" no. \t"+str(i+1))
         group_photos.append(image)
     return group_photos
 
 
-def load_groups(group_names, processed=False):   # group_names = ("apple", "asus", "dell", "hp", "huawei", "microsoft")
+def load_groups(group_names, processed=0):
     groups = []
     for g in group_names:
         single_group = load_photos_from_group(g, processed)
         groups.append(single_group)
     return groups
 
-def preprocess_group(group, g_name):
+def preprocess_group(group, g_name, processed=0):
 
     for i, v in enumerate(group):
         image = v.copy()
-
         image = feature.canny(image=image, sigma=1.5)
-
-        file_path = "img_processed/" + g_name + '/' + g_name
+        if processed == 0:
+            file_path = "img_processed/" + g_name + '/' + g_name
+        else:
+            file_path = "img_test_processed/" + g_name + '/' + g_name
         if i < 10:
             file_path += '0'
         file_path += str(i) + ".jpg"
         io.imsave(file_path, util.img_as_ubyte(image))
 
-def preprocess(groups, names):
+def preprocess(groups, names, processed=0):
     for i, group in enumerate(groups):
-        preprocess_group(group, names[i])
+        preprocess_group(group, names[i], processed)
 
 def calculate_hu(image):
     moments = cv2.moments(image)
@@ -66,10 +73,14 @@ def normalize_hu(moments):
         moments[i] = -1* copysign(1.0, moments[i])*log10(abs(moments[i]))
     return moments
 
-def make_desc(photos, names):
+def make_desc(photos, names, processed=0):
     desc = list()
+    if processed == 0:
+        n = 25
+    else:
+        n = 9
     for i, group in enumerate(names):
-        for j in range(25):
+        for j in range(n):
             desc.append((normalize_hu(calculate_hu(photos[i][j])), group))
     return desc
 
@@ -112,17 +123,58 @@ def select_k(data):
             k = k_guess
     return k
 
-names = ("apple", "asus", "dell", "hp", "huawei", "microsoft")
-#photos = load_groups(names)
+def teaching_process(names):
+    photos = load_groups(names)
 
-#preprocess(photos, names)
+    preprocess(photos, names)
 
-photos = load_groups(names, processed=True)
+    photos = load_groups(names, processed=1)
 
-data = make_desc(photos, names)
+    data = make_desc(photos, names)
+    return (data, select_k(data))
 
-bestK = select_k(data)
-print("K: ", bestK, "\n", end=" ")
+def prepare_test(names):
+    data = load_groups(names, 2)
+    preprocess(data, names, 1)
 
-for i in data:
-    print(i[1], "prediciton:", prediction(data, i[0], bestK)[0], "\n", end=" ")
+    data = load_groups(names, 3)
+    moment = make_desc(data, names, 1)
+
+    return moment
+
+def make_test(k, test, data, names):
+    res = dict()
+    for i in names:
+        res[i] = dict()
+        for j in names:
+            res[i][j] = 0
+    for i in test:
+        predict = prediction(data, i[0], k)
+        if i[1] in predict:
+            res[i[1]][i[1]] += 1
+        else:
+            res[i[1]][predict[0]] += 1
+    for i in data:
+        predict = prediction(data, i[0], k)
+        if i[1] in predict:
+            res[i[1]][i[1]] += 1
+        else:
+            res[i[1]][predict[0]] += 1
+    return res
+
+
+if __name__ == '__main__':
+    names = ("apple", "asus", "dell", "hp", "huawei", "microsoft")
+    data_set, k = teaching_process(names)
+    test_set = prepare_test(names)
+    matrix = make_test(k, test_set, data_set, names)
+    print(end="           ")
+
+    for i in matrix.keys():
+        print(i, end="    ")
+    print()
+    for i in matrix.keys():
+        print(i, end="         ")
+        for j in matrix[i].keys():
+            print(str(matrix[i][j]/34 * 100) + '%', end="     ")
+        print()
