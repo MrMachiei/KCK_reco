@@ -28,7 +28,7 @@ def get_file_path(group_name, number, processed=0):
 def load_photos_from_group(group_name, processed=0):
     group_photos = []
     if processed > 1:
-        n = 9
+        n = 34
     else:
         n = 25
     for i in range(n):
@@ -78,7 +78,7 @@ def make_desc(photos, names, processed=0):
     if processed == 0:
         n = 25
     else:
-        n = 9
+        n = 34
     for i, group in enumerate(names):
         for j in range(n):
             desc.append((normalize_hu(calculate_hu(photos[i][j])), group))
@@ -149,12 +149,6 @@ def make_test(k, test, data, names):
         for j in names:
             res[i][j] = 0
     for i in test:
-        predict = prediction(data, i[0], k)
-        if i[1] in predict:
-            res[i[1]][i[1]] += 1
-        else:
-            res[i[1]][predict[0]] += 1
-    for i in data:
         predict = prediction(data, i[0], k)
         if i[1] in predict:
             res[i[1]][i[1]] += 1
